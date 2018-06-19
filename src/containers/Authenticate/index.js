@@ -1,18 +1,14 @@
 import React from 'react'
 import AuthenticationForm from '../../components/AuthenticationForm/index'
 
+const Authenticate = ({clientAuthenticated}) => (
+  <div>
+    <AuthenticationForm
+      submitForm={(bearer_token) => {
+        clientAuthenticated(bearer_token)
+      }}
+    />
+  </div>
+)
 
-class Authenticate extends React.Component {
-
-  render() {
-    return (
-      <div>
-        <AuthenticationForm
-          submitForm={(client_id, client_secret) => {
-
-          }}
-        />
-      </div>
-    )
-  }
-}
+export default Authenticate

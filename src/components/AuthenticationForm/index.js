@@ -4,31 +4,28 @@ class AuthenticationForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      client_id: '',
-      client_secret: '',
+      access_token: '',
     }
   }
 
   render() {
     return (
-      <form onSubmit={() => {
+      <form onSubmit={(e) => {
+        e.preventDefault()
         this.props.submitForm(
-          this.state.client_id,
-          this.state.client_secret,
+          this.state.access_token,
         )
       }}>
+        <p>
+          Using the Spotify developer console, request an authorization token
+          <br/>
+          <a href="https://developer.spotify.com/console/get-search-item">Get Token</a>
+        </p>
         <label>
-          client_id
+          oauth token
           <input
             type="text"
-            onChange={e => this.setState({client_id: e.target.value})}
-          />
-        </label>
-        <label>
-          client_secret
-          <input
-            type="password"
-            onChange={e => this.setState({client_secret: e.target.value})}
+            onChange={e => this.setState({access_token: e.target.value})}
           />
         </label>
       </form>
