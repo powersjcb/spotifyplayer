@@ -14,7 +14,7 @@ class App extends Component {
     super(props)
     this.state = {
       // hardcode this value for development
-      bearer_token: 'BQDSZr_4bRFYFIn-Gg9L0wADL793QnPWNc5EOrq6fb1pXBO0pP961G3gsvI8gcl9AG4nJJ9NXV96OUqByUsyhTLBlgmAyJNOHr1vFrmOXy1iavv6vSnuXFh80DO_uj6vPB5OEiiSgZcuRtZ58JI8OvbVSGiZbVTPXK4',
+      bearer_token: 'BQCsDOKnnx-AWAmXr4osHhiAs5Rj5a3bFilGQWU2OoQcHgClUymA2upbQFdPqgF5PzUfEF2dZvXcDa8FQcRWet1tJe_x5ZB_0vA0wedJnR5HMlZN8ypTi0FPcXU8WuC1tRnDFTYYuYgizEollf64UGidDAlkNrd6tJs',
       search: '', // added by search container
     }
   }
