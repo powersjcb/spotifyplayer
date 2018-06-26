@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import './App.css'
 import Authenticate from './containers/Authenticate/index'
 import Search from './containers/Search/index'
-import Playlist from './containers/Playlist/index'
-
+import Player from './containers/Player/index'
 
 // take bearer_token from user
 // splash screen
@@ -14,8 +12,8 @@ class App extends Component {
     super(props)
     this.state = {
       // hardcode this value for development
-      bearer_token: 'BQDgVuBhZq3YE_6ipJR2W7AYYkXedyHW9kkS0eKQlJBcZ2DuagCmZEPhRSjp7ReUdtCZxccuaTf-xDbv85KDPTJjqe9f4Zcr-PJqqUWgnTH8GVdyxNptOVopDqRKuTg13efRjUVL26rhVZl3uqwUpZJjSLgkvKkLkYs',
-      search: '', // added by search container
+      bearer_token: 'BQCLYU3RuC9roT0o7J-b8iaZ_X58ge5lFB2YJ03C9b9hcRAF5vJkRuqCCvt9EKyldgoEWh0P7ZjWArm2o4by22v-uDH6W3lORJQa3fihehhzg9F3ncxQW3sHgKAZ15iKAkAVi4MYWhrGgd3A18cXKpXF4gx1hmDnRqE',
+      search: 'bach', // added by search container
     }
   }
 
@@ -32,7 +30,7 @@ class App extends Component {
 
     if (this.state.search) {
       return (
-        <Playlist
+        <Player
           search={this.state.search}
           bearer_token={this.state.bearer_token}
         />
