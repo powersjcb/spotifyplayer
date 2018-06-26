@@ -10,10 +10,13 @@ import PlayerContainer from './containers/Player/index'
 class App extends Component {
   constructor(props){
     super(props)
+    let bearer_token = ''
+    if (window) {
+        bearer_token = window.sessionStorage.getItem('bearer_token')
+    }
     this.state = {
-      // hardcode this value for development
-      bearer_token: 'BQCJe1OkBvSpRUgpSquo_GTG2qrZueJ_Iue7ds6K7DmpXN805vy0uh8pFc1cAxhbRBbfYb5glauqQB-_QRT1EOAE8QqqXaiOHN3F06RBqw3uAaR8DtycRt72HHRgqovHsSlp6SiblCCOczkInYWOwIBcW5ihlDGHpqY',
-      search: 'haydn', // added by search container
+      search: 'haydn',
+      bearer_token,
     }
   }
 
@@ -22,6 +25,9 @@ class App extends Component {
       return (
         <Authenticate
           clientAuthenticated={(bearer_token) => {
+            if (window) {
+              window.sessionStorage.setItem('bearer_token', bearer_token)
+            }
             this.setState({bearer_token})
           }}
         />
