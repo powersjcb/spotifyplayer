@@ -1,5 +1,5 @@
 import React from 'react'
-import PlayButton from './play_button'
+import {PlayButton, SkipBack, SkipForward} from './buttons'
 import MediaSlider from './slider'
 import Timer from './timer'
 
@@ -16,11 +16,11 @@ class AudioController extends React.Component {
   }
 
   componentWillUnmount() {
+    this.audio.pause()
     // remove event listeners, stop audio
-    for (const [key, value] of Object.entries(this.audioEventListeners)) {
+    for (const [key, value] of Object.entries(this.audioEvents)) {
       this.audio.removeEventListener(key, value)
     }
-    this.audioContext.close()
     document.removeEventListener('keypress', this.handleSpacebar)
   }
 
@@ -73,9 +73,15 @@ class AudioController extends React.Component {
           currentTime={this.state.currentTime}
           duration={this.state.duration}
         />
+        <SkipBack
+          onClick={this.props.goBack}
+        />
         <PlayButton
           isPlaying={this.state.isPlaying}
           onClick={() => {this.togglePlay()}}
+        />
+        <SkipForward
+          onClick={this.props.goForward}
         />
       </div>
     )
@@ -83,3 +89,6 @@ class AudioController extends React.Component {
 }
 
 export default AudioController
+
+// icons sourced from:
+// https://feathericons.com/

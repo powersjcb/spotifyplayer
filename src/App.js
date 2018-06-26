@@ -12,7 +12,7 @@ class App extends Component {
     super(props)
     this.state = {
       // hardcode this value for development
-      bearer_token: 'BQCLYU3RuC9roT0o7J-b8iaZ_X58ge5lFB2YJ03C9b9hcRAF5vJkRuqCCvt9EKyldgoEWh0P7ZjWArm2o4by22v-uDH6W3lORJQa3fihehhzg9F3ncxQW3sHgKAZ15iKAkAVi4MYWhrGgd3A18cXKpXF4gx1hmDnRqE',
+      bearer_token: 'BQCrBSt-0k-9PQzthvmxl7jBHNQd91UdMhjSxLffXsyUZw7991lHvt0dVFW2Kw_xk5KDGh6pxCyGyRza6T5qz9RJSaJs1Dm5QSm-GRZSpOTZMizUDQSYvI-f2C4yExhk6S669m3BvLsLmStICuE-4CrCjVlgDOdza7g',
       search: 'bach', // added by search container
     }
   }
@@ -33,6 +33,7 @@ class App extends Component {
         <Player
           search={this.state.search}
           bearer_token={this.state.bearer_token}
+          handleFinished={() => this.setState({search: ''})}
         />
       )
     }

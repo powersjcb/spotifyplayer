@@ -14,6 +14,8 @@ class Player extends React.Component {
       playlist: [],
     }
     this.fetchPlaylist = this.fetchPlaylist.bind(this)
+    this.goBack = this.goBack.bind(this)
+    this.goForward = this.goForward.bind(this)
   }
 
   componentDidMount() {
@@ -35,11 +37,21 @@ class Player extends React.Component {
       this.setState({playlist: songs})
     }).catch(e => console.log(e)) // todo: handle failures
   }
-
   currentSong() {
     return this.state.playlist[this.state.current_song]
   }
-
+  goBack() {
+    if (this.state.current_song > 0) {
+      this.setState({current_song: this.state.current_song - 1})
+    }
+  }
+  goForward() {
+    if (this.state.playlist.length - 1 === this.state.current_song) {
+      this.props.handleFinished()
+    } else {
+      this.setState({current_song: this.state.current_song + 1})
+    }
+  }
   render() {
     const song = this.currentSong()
     return (
@@ -54,7 +66,14 @@ class Player extends React.Component {
           />
         }
         <br/>
-        {this.currentSong() && <AudioController src={this.currentSong().preview_url}/>}
+        {this.currentSong()
+          &&
+          <AudioController
+            src={this.currentSong().preview_url}
+            goBack={this.goBack}
+            goForward={this.goForward}
+          />
+        }
       </div>
     )
   }
