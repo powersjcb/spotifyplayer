@@ -4,6 +4,8 @@ import MediaSlider from './slider'
 import Timer from './timer'
 
 class AudioController extends React.Component {
+  audio = new Audio()  // audio element is a singleton
+
   constructor(props) {
     super(props)
     this.state = {
@@ -13,32 +15,50 @@ class AudioController extends React.Component {
     }
     this.seek = this.seek.bind(this)
     this.handleSpacebar = this.handleSpacebar.bind(this)
+    this.togglePlay = this.togglePlay.bind(this)
   }
 
-  componentWillUnmount() {
+  detatchAudioListeners() {
     this.audio.pause()
+    this.audio.currentTime = 0
     // remove event listeners, stop audio
     for (const [key, value] of Object.entries(this.audioEvents)) {
       this.audio.removeEventListener(key, value)
     }
     document.removeEventListener('keypress', this.handleSpacebar)
+    this.audio.src = null
   }
 
-  componentDidMount() {
-    // generate audio element, attach event listeners
-    this.audio = new Audio(this.props.src)
+  attachAudioListeners(props) {
+    this.audio.src = this.props.src
     this.audioEvents = {
       'timeupdate': () => {this.setState({currentTime: this.audio.currentTime})},
       'canplaythrough': () => {this.audio.play()},
       'loadedmetadata': () => {this.setState({duration: this.audio.duration})},
       'play': () => {this.setState({isPlaying: true})},
       'pause': () => {this.setState({isPlaying: false})},
+      'ended': () => {this.props.goForward()},
       'error': () => {console.log('error occured')},  // todo: skip to next song
     }
     for (const [key, value] of Object.entries(this.audioEvents)) {
       this.audio.addEventListener(key, value)
     }
     document.addEventListener('keypress', this.handleSpacebar)
+  }
+
+  componentWillUnmount() {
+    this.detatchAudioListeners()
+  }
+
+  componentDidMount() {
+    this.attachAudioListeners(this.props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.src !== nextProps.src) {
+      this.detatchAudioListeners()
+      this.attachAudioListeners(nextProps)
+    }
   }
 
   handleSpacebar(event) {
@@ -63,7 +83,7 @@ class AudioController extends React.Component {
 
   render() {
     return (
-      <div>
+      <div key={this.props.src}>
         <MediaSlider
           currentTime={this.state.currentTime}
           duration={this.state.duration}
@@ -78,7 +98,7 @@ class AudioController extends React.Component {
         />
         <PlayButton
           isPlaying={this.state.isPlaying}
-          onClick={() => {this.togglePlay()}}
+          onClick={this.togglePlay}
         />
         <SkipForward
           onClick={this.props.goForward}

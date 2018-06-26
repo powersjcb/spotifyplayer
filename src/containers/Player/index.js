@@ -35,7 +35,7 @@ class Player extends React.Component {
       // only include songs that have a preview track
       const songs = response.data.tracks.items.filter(song => song.preview_url)
       this.setState({playlist: songs})
-    }).catch(e => console.log(e)) // todo: handle failures
+    }).catch(e => console.log(e)) // todo: handle failures, 401 deletes creds
   }
   currentSong() {
     return this.state.playlist[this.state.current_song]
@@ -66,7 +66,7 @@ class Player extends React.Component {
           />
         }
         <br/>
-        {this.currentSong()
+        {song
           &&
           <AudioController
             src={this.currentSong().preview_url}
