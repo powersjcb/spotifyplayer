@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import LoadingIcon from './loader.svg'
 import Song from '../../components/Song/index'
 import AudioController from '../../components/AudioController/index'
 
@@ -54,26 +55,31 @@ class Player extends React.Component {
   }
   render() {
     const song = this.currentSong()
+    if (!song) {
+      return (
+        <img
+          src={LoadingIcon}
+          alt="loading icon"
+        />
+      )
+    }
     return (
       <div>
-        {song &&
-          <Song
-            key={song.id}
-            album={song.album}
-            name={song.name}
-            href={song.href}
-            duration={song.duration}
-          />
-        }
+        <Song
+          key={song.id}
+          album={song.album}
+          name={song.name}
+          href={song.href}
+          duration={song.duration}
+        />
         <br/>
-        {song
-          &&
-          <AudioController
-            src={this.currentSong().preview_url}
-            goBack={this.goBack}
-            goForward={this.goForward}
-          />
-        }
+
+        <AudioController
+          handleFinished={this.props.handleFinished}
+          src={this.currentSong().preview_url}
+          goBack={this.goBack}
+          goForward={this.goForward}
+        />
       </div>
     )
   }

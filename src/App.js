@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Authenticate from './containers/Authenticate/index'
 import Search from './containers/Search/index'
-import Player from './containers/Player/index'
+import PlayerContainer from './containers/Player/index'
 
 // take bearer_token from user
 // splash screen
@@ -30,7 +30,7 @@ class App extends Component {
 
     if (this.state.search) {
       return (
-        <Player
+        <PlayerContainer
           search={this.state.search}
           bearer_token={this.state.bearer_token}
           handleFinished={() => this.setState({search: ''})}

@@ -1,7 +1,7 @@
 import React from 'react'
 import {PlayButton, SkipBack, SkipForward} from './buttons'
 import MediaSlider from './slider'
-import Timer from './timer'
+import MenuIcon from './menu.svg'
 
 class AudioController extends React.Component {
   audio = new Audio()  // audio element is a singleton
@@ -80,7 +80,7 @@ class AudioController extends React.Component {
       this.audio.play()
     }
   }
-
+  // todo: refactor so there is a component that only receives variables used below
   render() {
     return (
       <div key={this.props.src}>
@@ -89,9 +89,10 @@ class AudioController extends React.Component {
           duration={this.state.duration}
           seek={this.seek}
         />
-        <Timer
-          currentTime={this.state.currentTime}
-          duration={this.state.duration}
+        <img
+          src={MenuIcon}
+          alt="menu icon"
+          onClick={this.props.handleFinished}
         />
         <SkipBack
           onClick={this.props.goBack}
